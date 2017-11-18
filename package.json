@@ -1,13 +1,12 @@
 {
   "name": "jsonp-simple",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
   "author": "kthjm <toxictoxer@gmail.com>",
   "repository": "kthjm/jsonp-simple",
   "license": "MIT",
   "main": "lib",
-  "description": "",
-  "keywords": [],
+  "description": "simple and thin promisify jsonp",
+  "keywords": ["jsonp", "promise"],
   "scripts": {
     "pretest": "flow",
     "test": "cross-env NODE_ENV=test nyc mocha test.js",
