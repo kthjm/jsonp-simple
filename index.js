@@ -27,8 +27,8 @@ const createExit = ({ script, globalName, resolve, reject }) => {
     resolve(res)
     rm()
   }
-  function fail(timeout) {
-    reject(timeout)
+  function fail(err) {
+    reject(err)
     rm()
   }
   function rm() {
@@ -37,8 +37,10 @@ const createExit = ({ script, globalName, resolve, reject }) => {
   }
 }
 
-const createError = obj =>
-  Object.assign({ timeout: false, onerror: false }, obj)
+const createError = (obj: { timeout?: true, onerror?: any }) => ({
+  timeout: obj.timeout || false,
+  onerror: obj.onerror || false
+})
 
 const appendScript = script =>
   document.head && document.head.appendChild(script)
@@ -50,8 +52,12 @@ const deleteGlobalName = globalName => {
   delete window[globalName]
 }
 
-export default (src: string, limit: number = 2000): Promise<*> =>
-  new Promise((resolve, reject) => {
+export default (src: string, limit: number = 2000): Promise<*> => {
+  if (typeof src !== 'string') {
+    throw new TypeError(`jsonp argument "src" must be "string"`)
+  }
+
+  return new Promise((resolve, reject) => {
     // create
     const globalName = createGlobalName()
     const script = createScript(createSrc(src, globalName))
@@ -67,11 +73,11 @@ export default (src: string, limit: number = 2000): Promise<*> =>
       () => fail(createError({ timeout: true })),
       limit
     )
-    script.onerror = e => {
+    script.onerror = (e: any) => {
       clearTimeout(timeout)
       fail(createError({ onerror: e }))
     }
-    window[globalName] = res => {
+    window[globalName] = (res: any) => {
       clearTimeout(timeout)
       succeed(res)
     }
@@ -79,3 +85,4 @@ export default (src: string, limit: number = 2000): Promise<*> =>
     // action
     appendScript(script)
   })
+}

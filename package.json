@@ -64,7 +64,6 @@
   },
   "nyc": {
     "require": ["babel-register", "jsdom-global/register"],
-    "include": ["index.js"],
     "sourceMap": false,
     "instrument": false
   }

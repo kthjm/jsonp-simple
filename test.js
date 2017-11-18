@@ -2,11 +2,21 @@ import assert from 'assert'
 import rewire from 'rewire'
 import sinon from 'sinon'
 
-const modules = rewire('.')
+const modules = rewire('./index.js')
 
 describe(`e2e`, () => {
   const jsonp = modules.default
   const url = 'https://api.github.com/users/kthjm'
+
+  it(`typeof src !== "string"`, () => {
+    const unstrings = [0, true, false, null, undefined, {}, [], () => {}]
+    unstrings.forEach(unstring =>
+      assert.throws(
+        () => jsonp(unstring),
+        /jsonp argument "src" must be "string"/
+      )
+    )
+  })
 
   it(`timeout() => fail(true)`, () => {
     const limit = 50
@@ -127,6 +137,27 @@ describe(`unit`, () => {
     assert.ok(window[globalName])
     deleteGlobalName(globalName)
     assert.ok(!window[globalName])
+  })
+
+  describe(`append/remove script`, () => {
+    const appendScript = modules.__get__('appendScript')
+    const removeScript = modules.__get__('removeScript')
+
+    it(`document.head`, () => {
+      const script = document.createElement('script')
+      appendScript(script)
+      assert.equal(document.head.lastElementChild, script)
+      removeScript(script)
+      assert.notEqual(document.head.lastElementChild, script)
+    })
+
+    it(`!document.head`, () => {
+      const html = document.children[0]
+      document.removeChild(html)
+      assert.deepStrictEqual(appendScript(), null)
+      assert.deepStrictEqual(removeScript(), null)
+      document.appendChild(html)
+    })
   })
 
   describe(`createSrc`, () => {
