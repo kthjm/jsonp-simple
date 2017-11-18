@@ -1,7 +1,6 @@
-src/
-test/
-flow-typed/
+.circleci/
+index.js
+test.js
 .flowconfig
 .gitignore
-.travis.yml
 yarn.lock
