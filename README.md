@@ -27,7 +27,7 @@ jsonp("https://api.github.com/repos/kthjm/jsonp-simple", 4000)
 
 `timeout: boolean`
 
-`onerror: Event`
+`onerror: Event | false`
 
 ## License
 MIT (http://opensource.org/licenses/MIT)
