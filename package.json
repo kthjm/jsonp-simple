@@ -11,7 +11,9 @@
   "scripts": {
     "pretest": "flow",
     "test": "cross-env NODE_ENV=test nyc mocha test.js",
-    "coverage": "nyc report --reporter=lcov | codecov",
+    "report": "nyc report --reporter=lcov",
+    "codecov": "codecov",
+    "coverage": "run-s report codecov",
     "prebuild": "yarn test",
     "build": "babel index.js -d ./lib",
     "postbuild": "prettier --write **/*.js package.json"
