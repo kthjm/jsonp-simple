@@ -6,11 +6,22 @@
 [![Codecov](https://img.shields.io/codecov/c/github/kthjm/jsonp-simple.svg?style=flat-square)](https://codecov.io/gh/kthjm/jsonp-simple)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-## Installation
+## Usage
+
+### Browser
+```html
+<script src="https://cdn.jsdelivr.net/npm/jsonp-simple/dist/jsonp-simple.min.js"></script>
+<script>
+  jsonpSimple("https://api.github.com/repos/kthjm/jsonp-simple", 4000)
+  .then((res) => console.log(res))
+  .catch((err) => console.error(err))
+</script>
+```
+
+### Node
 ```shell
 yarn add jsonp-simple
 ```
-## Usage
 ```js
 import jsonp from "jsonp-simple"
 
