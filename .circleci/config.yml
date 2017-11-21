@@ -34,7 +34,7 @@ workflows:
             - build
           filters:
             tags:
-              only: /.*/
+              only: /^test.*/
             branches:
               ignore: /.*/
             
