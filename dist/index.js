@@ -1,8 +1,7 @@
 'use strict'
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-})
+//
+
 var createRandom = function createRandom() {
   return Math.floor(Math.random() * 10000)
 }
@@ -67,7 +66,7 @@ var deleteGlobalName = function deleteGlobalName(globalName) {
   delete window[globalName]
 }
 
-exports.default = function(src) {
+var index = function(src) {
   var limit =
     arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2000
 
@@ -107,3 +106,5 @@ exports.default = function(src) {
     appendScript(script)
   })
 }
+
+module.exports = index

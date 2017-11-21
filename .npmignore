@@ -1,7 +1,8 @@
-src/
+.rollup/
+.circleci/
 test/
-flow-typed/
+src/
 .flowconfig
 .gitignore
-.travis.yml
+.prettierignore
 yarn.lock
