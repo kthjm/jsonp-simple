@@ -1,6 +1,8 @@
+.rollup/
 .circleci/
-index.js
-test.js
+test/
+src/
 .flowconfig
 .gitignore
+.prettierignore
 yarn.lock

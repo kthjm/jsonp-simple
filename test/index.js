@@ -2,7 +2,7 @@ import assert from 'assert'
 import rewire from 'rewire'
 import sinon from 'sinon'
 
-const modules = rewire('./index.js')
+const modules = rewire('../src')
 
 describe(`e2e`, () => {
   const jsonp = modules.default

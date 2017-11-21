@@ -4,21 +4,28 @@
   "author": "kthjm <toxictoxer@gmail.com>",
   "repository": "kthjm/jsonp-simple",
   "license": "MIT",
-  "main": "lib",
+  "main": "dist",
+  "jsnext:main": "dist/jsonp-simple.es.js",
+  "module": "dist/jsonp-simple.es.js",
   "description": "simple and thin promisify jsonp",
   "keywords": ["jsonp", "promise"],
   "scripts": {
     "pretest": "flow",
-    "test": "cross-env NODE_ENV=test nyc mocha test.js",
+    "test": "cross-env NODE_ENV=TEST nyc mocha",
+    "prebuild": "yarn test",
+    "build:umd": "rollup -c .rollup/rollup.config.umd.js",
+    "build:es": "rollup -c .rollup/rollup.config.es.js",
+    "build:cjs": "rollup -c .rollup/rollup.config.cjs.js",
+    "build": "cross-env NODE_ENV=BUILD run-s build:umd build:es build:cjs",
+    "postbuild": "run-s format copy",
+    "format": "prettier --write **/*.js package.json",
+    "copy": "flow-copy-source -v src dist",
     "report": "nyc report --reporter=lcov",
     "codecov": "codecov",
-    "coverage": "run-s report codecov",
-    "prebuild": "yarn test",
-    "build": "babel index.js -d ./lib",
-    "postbuild": "prettier --write **/*.js package.json"
+    "coverage": "run-s report codecov"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-rewire": "^1.1.0",
     "babel-preset-env": "^1.6.0",
@@ -27,15 +34,21 @@
     "codecov": "^3.0.0",
     "cross-env": "^5.0.5",
     "flow-bin": "^0.59.0",
-    "jsdom": "^11.3.0",
+    "flow-copy-source": "^1.2.1",
+    "jsdom": "^11.4.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^4.0.1",
     "npm-run-all": "^4.1.1",
     "nyc": "^11.2.1",
     "power-assert": "^1.4.4",
     "prettier": "^1.7.4",
-    "rewire": "^3.0.1",
-    "sinon": "^4.0.1"
+    "rewire": "^3.0.2",
+    "rollup": "^0.51.8",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-flow": "^1.1.1",
+    "rollup-plugin-uglify": "^2.0.1",
+    "sinon": "^4.0.1",
+    "uglify-es": "^3.1.10"
   },
   "prettier": {
     "tabWidth": 2,
@@ -43,21 +56,35 @@
     "singleQuote": true
   },
   "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "browsers": ["last 2 versions", "safari >= 7"]
-          }
-        }
-      ],
-      "flow"
-    ],
     "env": {
-      "test": {
-        "presets": ["power-assert"],
-        "plugins": ["istanbul"]
+      "TEST": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "node": "current"
+              },
+              "debug": true
+            }
+          ],
+          "flow",
+          "power-assert"
+        ],
+        "plugins": ["istanbul", "rewire"]
+      },
+      "BUILD": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "browsers": ["last 2 versions", "safari >= 7"]
+              },
+              "modules": false
+            }
+          ]
+        ]
       }
     }
   },
