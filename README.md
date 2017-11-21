@@ -18,7 +18,7 @@
 </script>
 ```
 
-### Node
+### Node (bundle for Browser)
 ```shell
 yarn add jsonp-simple
 ```
