@@ -29,12 +29,7 @@ workflows:
   build_if_publish:
     jobs:
       - build
-         filters:
-           tags:
-             only: /.*/
       - publish:
-          requires:
-            - build
           filters:
             tags:
               only: /^test.*/
