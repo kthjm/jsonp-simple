@@ -1,4 +1,4 @@
-# jsonp simple
+# jsonp-simple
 
 [![npm](https://img.shields.io/npm/v/jsonp-simple.svg?style=flat-square)](https://www.npmjs.com/package/jsonp-simple)
 [![npm](https://img.shields.io/npm/dm/jsonp-simple.svg?style=flat-square)](https://www.npmjs.com/package/jsonp-simple)
@@ -8,6 +8,7 @@
 
 ## Installation
 ```shell
+yarn add jsonp-simple
 ```
 ## Usage
 ```js
