@@ -1,11 +1,11 @@
 // @flow
 
-const createRandom = () => Math.floor(Math.random() * 10000)
+const createRandom = () => Math.floor(Math.random() * 1000)
 
 const createGlobalName = () => {
   const random = createRandom()
   const name = `jsonp_callback_${random}`
-  return window[name] ? createGlobalName() : name
+  return typeof random !== 'number' || window[name] ? createGlobalName() : name
 }
 
 const createSrc = (src, globalName) =>
