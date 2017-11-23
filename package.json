@@ -1,6 +1,6 @@
 {
   "name": "jsonp-simple",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "kthjm <toxictoxer@gmail.com>",
   "repository": "kthjm/jsonp-simple",
   "license": "MIT",
@@ -8,7 +8,18 @@
   "jsnext:main": "dist/jsonp-simple.es.js",
   "module": "dist/jsonp-simple.es.js",
   "description": "simple and thin promisify jsonp",
-  "keywords": ["jsonp", "promise"],
+  "keywords": [
+    "jsonp",
+    "promise"
+  ],
+  "nyc": {
+    "require": [
+      "babel-register",
+      "jsdom-global/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
   "scripts": {
     "pretest": "flow",
     "test": "cross-env NODE_ENV=TEST nyc mocha",
@@ -30,6 +41,7 @@
     "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-rewire": "^1.1.0",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-power-assert": "^1.0.0",
     "codecov": "^3.0.0",
@@ -55,43 +67,5 @@
     "tabWidth": 2,
     "semi": false,
     "singleQuote": true
-  },
-  "babel": {
-    "env": {
-      "TEST": {
-        "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "node": "current"
-              },
-              "debug": true
-            }
-          ],
-          "flow",
-          "power-assert"
-        ],
-        "plugins": ["istanbul", "rewire"]
-      },
-      "BUILD": {
-        "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "browsers": ["last 2 versions", "safari >= 7"]
-              },
-              "modules": false
-            }
-          ]
-        ]
-      }
-    }
-  },
-  "nyc": {
-    "require": ["babel-register", "jsdom-global/register"],
-    "sourceMap": false,
-    "instrument": false
   }
 }

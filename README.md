@@ -7,13 +7,15 @@
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![cdn](https://img.shields.io/badge/jsdelivr-latest-e84d3c.svg?style=flat-square)](https://cdn.jsdelivr.net/npm/jsonp-simple/dist/jsonp-simple.min.js)
 
+simple and thin promisify jsonp
+
 ## Usage
 
 ### Browser
 ```html
 <script src="https://cdn.jsdelivr.net/npm/jsonp-simple/dist/jsonp-simple.min.js"></script>
 <script>
-  jsonpSimple("https://api.github.com/repos/kthjm/jsonp-simple", 4000)
+  jsonpSimple("https://api.github.com/repos/kthjm/jsonp-simple")
   .then((res) => console.log(res))
   .catch((err) => console.error(err))
 </script>
@@ -26,17 +28,17 @@ yarn add jsonp-simple
 ```js
 import jsonp from "jsonp-simple"
 
-jsonp("https://api.github.com/repos/kthjm/jsonp-simple", 4000)
+jsonp("https://api.github.com/repos/kthjm/jsonp-simple")
 .then((res) => console.log(res))
 .catch((err) => console.error(err))
 ```
 ## API
 
-### `jsonp(src[, limit])`
+### `jsonp(src[, timeout])`
 
 `src: string`
 
-`limit: number = 2000`
+`timeout: number = 2000`
 
 ### `error`
 

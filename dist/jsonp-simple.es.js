@@ -1,13 +1,13 @@
 //
 
 var createRandom = function createRandom() {
-  return Math.floor(Math.random() * 10000)
+  return Math.floor(Math.random() * 1000)
 }
 
 var createGlobalName = function createGlobalName() {
   var random = createRandom()
   var name = 'jsonp_callback_' + random
-  return window[name] ? createGlobalName() : name
+  return typeof random !== 'number' || window[name] ? createGlobalName() : name
 }
 
 var createSrc = function createSrc(src, globalName) {
