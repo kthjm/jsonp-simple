@@ -8,15 +8,14 @@
   "jsnext:main": "dist/jsonp-simple.es.js",
   "module": "dist/jsonp-simple.es.js",
   "description": "simple and thin promisify jsonp",
-  "keywords": [
-    "jsonp",
-    "promise"
-  ],
+  "keywords": ["jsonp", "promise"],
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
   "nyc": {
-    "require": [
-      "babel-register",
-      "jsdom-global/register"
-    ],
+    "require": ["babel-register", "jsdom-global/register"],
     "sourceMap": false,
     "instrument": false
   },
@@ -24,11 +23,7 @@
     "pretest": "flow",
     "test": "cross-env NODE_ENV=TEST nyc mocha",
     "prebuild": "yarn test",
-    "roll": "cross-env NODE_ENV=BUILD rollup",
-    "build:umd": "yarn roll -c .rollup/rollup.config.umd.js",
-    "build:es": "yarn roll -c .rollup/rollup.config.es.js",
-    "build:cjs": "yarn roll -c .rollup/rollup.config.cjs.js",
-    "build": "run-s build:umd build:es build:cjs",
+    "build": "cross-env NODE_ENV=BUILD node rollup.config.all.js",
     "postbuild": "run-s format copy",
     "format": "prettier --write **/*.js package.json",
     "copy": "flow-copy-source -v src dist",
@@ -60,10 +55,5 @@
     "rollup-plugin-uglify": "^2.0.1",
     "sinon": "^4.0.1",
     "uglify-es": "^3.1.10"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true
   }
 }
