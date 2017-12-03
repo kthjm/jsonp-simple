@@ -32,9 +32,7 @@
     "postbuild": "run-s format copy",
     "format": "prettier --write **/*.js package.json",
     "copy": "flow-copy-source -v src dist",
-    "report": "nyc report --reporter=lcov",
-    "codecov": "codecov",
-    "coverage": "run-s report codecov"
+    "coverage": "nyc report --reporter=lcov && codecov"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
